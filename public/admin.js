@@ -1,3 +1,55 @@
+function initAdminNew(){
+   $(document).ready(function(){
+		$("#new").validate({
+			rules: {
+				firstname: {
+					required: true,
+                    maxLength: 30
+				},
+                home: {
+                    required: function(element){
+                        return $("#cell").val() =='';
+                    }
+                },
+                cell: {
+                    required: function(element){
+                        return $("#home").val() =='';
+                    }
+                }         
+			},
+            
+			messages: {
+				firstname: {
+					required: "You must enter a first name.",
+					maxLength: "First name must be shorter than 30 characters."
+				},
+                home: {
+                    required: 'One phone number is required.'
+                },
+                cell: {
+                    required: 'One phone number is required.'
+                }
+                
+			},
+			highlight: function(element, errorClass, validClass){
+                $(element).parent("div").parent("div").addClass(errorClass).removeClass(validClass);
+			},
+			unhighlight: function(element, errorClass, validClass){
+                $(element).parent("div").parent("div").addClass(validClass).removeClass(errorClass);
+			},
+			submitHandler: function(form) {
+				form.submit();
+			},
+			errorClass: "error",
+			validClass: "success",
+			errorElement: "span",
+			errorPlacement: function(error, element){
+				error.insertAfter(element);
+				error.addClass('help-inline');
+			}
+		});//end validate
+	});// end ready
+}
 function initAdminLimits(){
 	$(document).ready(function(){
 		$("#adjust").validate({
